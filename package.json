@@ -1,0 +1,47 @@
+{
+  "name": "soundboard-app",
+  "version": "1.0.0",
+  "description": "Una aplicación de React de ejemplo",
+  "main": "src/index.js",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [
+    "react",
+    "javascript",
+    "web"
+  ],
+  "author": "Juan Genero",
+  "license": "MIT",
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.3.0",
+    "@mui/material": "^6.3.0",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "gh-pages": "^6.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-magic-motion": "^1.1.2",
+    "react-scripts": "5.0.1"
+  },
+  "homepage": "https://juangenero.github.io/soundboard-app",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
