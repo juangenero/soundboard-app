@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/soundboard-app/static/js/main.e4749ed2.js",
-    "index.html": "/soundboard-app/index.html",
-    "main.e4749ed2.js.map": "/soundboard-app/static/js/main.e4749ed2.js.map"
+    "main.js": "/static/js/main.e4749ed2.js",
+    "index.html": "/index.html",
+    "main.e4749ed2.js.map": "/static/js/main.e4749ed2.js.map"
   },
   "entrypoints": [
     "static/js/main.e4749ed2.js"
