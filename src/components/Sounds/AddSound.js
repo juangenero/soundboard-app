@@ -9,10 +9,11 @@ import {
   TextField,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { addSound } from '../../services/api.service';
+import { addSound } from '../../services/api.service.js';
 
 function AddSound() {
   const [openModal, setOpenModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     audioName: '',
     audioFile: null,
@@ -35,6 +36,7 @@ function AddSound() {
     cleanValuesForm();
     cleanErrorsForm();
     setOpenModal(false);
+    setLoading(false);
   };
 
   // Botón Guardar
@@ -44,20 +46,21 @@ function AddSound() {
     const formValid = validateForm();
     if (!formValid) return;
 
-    console.log('Enviando audio -> ', formValues.audioFile?.name);
-
     // Lógica para añadir el audio
     const formData = new FormData();
     formData.append('nombre', formValues.nombre);
     formData.append('sonido', formValues.audioFile);
 
+    setLoading(true);
+
     // Enviar formdata al backend
     addSound(formData)
       .then((data) => {
         closeModalFn();
+        setLoading(false);
       })
       .catch((err) => {
-        console.error(`Ocurrió un error: ${err}`);
+        setLoading(false);
         closeModalFn();
       });
   }
@@ -70,12 +73,12 @@ function AddSound() {
     return nombreValido;
   }
 
-  const validateNombre = (nombre) => {
-    return nombre.trim().length >= minLengthNombre;
+  const validateFile = (file) => {
+    return file && file.length > 0;
   };
 
-  const validateFile = (fileName) => {
-    return fileName && fileName.length > 0;
+  const validateNombre = (nombre) => {
+    return nombre.trim().length >= minLengthNombre;
   };
 
   // Botón explorar
@@ -105,7 +108,6 @@ function AddSound() {
       return acc;
     }, {});
 
-    console.log(cleanErrors);
     setFormErrors(cleanErrors);
   }
 
@@ -118,8 +120,8 @@ function AddSound() {
         <DialogTitle>Subir un audio</DialogTitle>
         <DialogContent>
           <Grid2 container spacing={1}>
-            {/* 1 - Input archivo de audio */}
-            <Grid2 size={9}>
+            {/* 1 - Input / button archivo de audio */}
+            <Grid2 size={12} sx={{ display: 'flex', alignItems: 'center' }}>
               <TextField
                 margin="normal"
                 placeholder="Elige un audio"
@@ -130,15 +132,14 @@ function AddSound() {
                 variant="outlined"
                 inputProps={{ readOnly: true }}
                 onClick={() => fileInputRef.current?.click()}
+                sx={{ flex: 1 }}
               />
-            </Grid2>
-
-            {/* 2 - Botón explorar */}
-            <Grid2
-              size={3}
-              sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            >
-              <Button variant="contained" component="label" startIcon={<FileUpload />}>
+              <Button
+                variant="contained"
+                component="label"
+                startIcon={<FileUpload />}
+                sx={{ ml: 1 }}
+              >
                 Explorar
                 <input
                   type="file"
@@ -150,13 +151,13 @@ function AddSound() {
               </Button>
             </Grid2>
 
-            {/* 3 - Nombre del audio */}
+            {/* 2 - Nombre del audio */}
             <Grid2 size={12}>
               <TextField
                 margin="dense"
                 label="Nombre del audio"
                 error={formErrors.nombre}
-                helperText={formErrors.nombre && `Mínimo de ${minLengthNombre} caracteres`}
+                helperText={formErrors.nombre && `Mínimo de ${minLengthNombre} carácteres`}
                 fullWidth
                 value={formValues.nombre}
                 required
@@ -166,19 +167,27 @@ function AddSound() {
               />
             </Grid2>
 
-            {/* 4 - Icono */}
+            {/* 3 - Icono */}
             <Grid2 size={0}></Grid2>
 
-            {/* 5 - Volumen del audio */}
+            {/* 4 - Volumen del audio */}
             <Grid2 size={0}></Grid2>
           </Grid2>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeModalFn} color="danger">
+          <Button
+            onClick={closeModalFn}
+            color="danger"
+            sx={{
+              '&:hover': {
+                textDecoration: 'underline',
+              },
+            }}
+          >
             Cancelar
           </Button>
 
-          <Button onClick={handleSubmit} variant="contained">
+          <Button onClick={handleSubmit} variant="contained" disabled={loading}>
             Guardar
           </Button>
         </DialogActions>

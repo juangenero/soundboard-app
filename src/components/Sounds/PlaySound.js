@@ -1,21 +1,33 @@
-import React from 'react';
+import { PlayArrow } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
+import React, { useState } from 'react';
 import { playSonido } from '../../services/api.service.js';
 
 const PlaySound = (props) => {
+  const [loading, setLoading] = useState(false);
+
   async function handlePlayClick() {
+    setLoading(true);
     try {
-      const response = await playSonido(props.id);
-      // if (!response.ok) {
-      //   throw new Error('Error en la llamada al endpoint');
-      // }
-      // const data = await response.json();
-      console.log('Respuesta reproducir sonido: ', response);
-    } catch (error) {
-      console.error('Error:', error);
+      playSonido(props.id)({ time: 1500 })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    } catch (err) {
+      console.error(err);
     }
   }
 
-  return <button onClick={handlePlayClick}>▶️ Play</button>;
+  return (
+    <>
+      <IconButton sx={{ background: '#d3d3d3' }} onClick={handlePlayClick} disabled={loading}>
+        <PlayArrow fontSize="large" />
+      </IconButton>
+    </>
+  );
 };
 
 export default PlaySound;

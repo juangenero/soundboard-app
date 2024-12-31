@@ -1,5 +1,15 @@
 import axios from 'axios';
 
+// Test
+export async function simulateCall({ resolvePromise = true, time = 1000 }) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (resolvePromise) resolve('Promesa resuelta con éxito');
+      else reject('Promesa rechazada');
+    }, time);
+  });
+}
+
 // Login
 
 export async function login() {
