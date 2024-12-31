@@ -1,7 +1,7 @@
 import { PlayArrow } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import React, { useState } from 'react';
-import { playSonido } from '../../services/api.service.js';
+import { playSonido, simulateCall } from '../../services/api.service.js';
 
 const PlaySound = (props) => {
   const [loading, setLoading] = useState(false);
@@ -9,13 +9,18 @@ const PlaySound = (props) => {
   async function handlePlayClick() {
     setLoading(true);
     try {
-      playSonido(props.id)({ time: 1500 })
+      playSonido(props.id)
         .then(() => {
-          setLoading(false);
+          // setLoading(false);
         })
         .catch(() => {
-          setLoading(false);
+          // setLoading(false);
         });
+
+      // TODO por arreglar
+      simulateCall({ time: 2000 }).then(() => {
+        setLoading(false);
+      });
     } catch (err) {
       console.error(err);
     }
