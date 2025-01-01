@@ -19,13 +19,13 @@ export async function login() {
 // Sonidos
 
 export async function addSound(formData) {
-  return await axios.post(`${process.env.REACT_APP_API_URL}/sonido/upload`, formData);
+  return await axios.post(`${process.env.REACT_APP_API_URL}/audio/upload`, formData);
 }
 
-export async function getSonidos() {
-  return await axios.get(`${process.env.REACT_APP_API_URL}/sonido`);
+export async function getAudios() {
+  return await axios.get(`${process.env.REACT_APP_API_URL}/audio`);
 }
 
 export async function playSonido(id) {
-  return await axios.get(`${process.env.REACT_APP_API_URL}/sonido/play/${id}`);
+  return await axios.get(`${process.env.REACT_APP_API_URL}/audio/play/${id}`);
 }

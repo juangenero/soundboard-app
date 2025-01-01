@@ -1,36 +1,32 @@
 import { PlayArrow } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import React, { useState } from 'react';
-import { playSonido, simulateCall } from '../../services/api.service.js';
+import { playSonido } from '../../services/api.service.js';
 
 const PlaySound = (props) => {
   const [loading, setLoading] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState(null);
 
   async function handlePlayClick() {
     setLoading(true);
-    try {
-      playSonido(props.id)
-        .then(() => {
-          // setLoading(false);
-        })
-        .catch(() => {
-          // setLoading(false);
-        });
+    const startTime = Date.now();
 
-      // TODO por arreglar
-      simulateCall({ time: 2000 }).then(() => {
+    playSonido(props.id)
+      .then((res) => {
+        setElapsedTime(res.data.timeResponse - startTime);
+        setLoading(false);
+      })
+      .catch(() => {
         setLoading(false);
       });
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   return (
     <>
-      <IconButton sx={{ background: '#d3d3d3' }} onClick={handlePlayClick} disabled={loading}>
+      <IconButton onClick={handlePlayClick} disabled={loading}>
         <PlayArrow fontSize="large" />
       </IconButton>
+      {elapsedTime && <div>{elapsedTime} ms</div>}
     </>
   );
 };

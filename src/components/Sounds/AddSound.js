@@ -56,8 +56,8 @@ function AddSound() {
     // Enviar formdata al backend
     addSound(formData)
       .then((data) => {
-        closeModalFn();
         setLoading(false);
+        closeModalFn();
       })
       .catch((err) => {
         setLoading(false);
@@ -70,7 +70,7 @@ function AddSound() {
     const audioValido = validateFile(formValues.audioName);
     const nombreValido = validateNombre(formValues.nombre);
     setFormErrors({ ...formErrors, audioFile: !audioValido, nombre: !nombreValido });
-    return nombreValido;
+    return audioValido && nombreValido;
   }
 
   const validateFile = (file) => {

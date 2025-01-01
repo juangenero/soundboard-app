@@ -8,19 +8,19 @@ import {
   TableRow,
 } from '@mui/material';
 import { React, useEffect, useState } from 'react';
-import { getSonidos } from '../../services/api.service.js';
+import { getAudios } from '../../services/api.service.js';
 import PlaySound from './PlaySound.js';
 
 const ShowSounds = () => {
-  const [sonidos, setSonidos] = useState([]);
+  const [audios, setAudios] = useState([]);
 
   useEffect(() => {
     const fetchSounds = async () => {
       try {
-        const response = await getSonidos();
-        setSonidos(response.data);
+        const response = await getAudios();
+        setAudios(response.data);
       } catch (error) {
-        console.error('Error al recuperar los sonidos:', error);
+        console.error('Error al recuperar los audios:', error);
       }
     };
 
@@ -29,28 +29,31 @@ const ShowSounds = () => {
 
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Nombre</TableCell>
-              <TableCell>Sonido</TableCell>
-              <TableCell>Acciones</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {sonidos.map((sonido) => (
-              <TableRow key={sonido.id}>
-                <TableCell>{sonido.nombre}</TableCell>
-                <TableCell>{sonido.sonido}</TableCell>
-                <TableCell>
-                  <PlaySound id={sonido.id} />
-                </TableCell>
+      {audios.length === 0 && <h2>No hay sonidos para mostrar</h2>}
+      {audios.length > 0 && (
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Nombre</TableCell>
+                <TableCell>Audio</TableCell>
+                <TableCell>Acciones</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {audios.map((audio) => (
+                <TableRow key={audio.id}>
+                  <TableCell>{audio.nombre}</TableCell>
+                  <TableCell>{audio.sonido}</TableCell>
+                  <TableCell>
+                    <PlaySound id={audio.id} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </>
   );
 };
