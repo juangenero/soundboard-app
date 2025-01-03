@@ -9,9 +9,8 @@ import {
   TextField,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { addSound } from '../../services/api.service.js';
 
-function AddSound() {
+function AddAudios({ handleAddAudio }) {
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
@@ -40,7 +39,7 @@ function AddSound() {
   };
 
   // Botón Guardar
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const formValid = validateForm();
@@ -49,20 +48,19 @@ function AddSound() {
     // Lógica para añadir el audio
     const formData = new FormData();
     formData.append('nombre', formValues.nombre);
-    formData.append('sonido', formValues.audioFile);
+    formData.append('audio', formValues.audioFile);
 
     setLoading(true);
 
     // Enviar formdata al backend
-    addSound(formData)
-      .then((data) => {
-        setLoading(false);
-        closeModalFn();
-      })
-      .catch((err) => {
-        setLoading(false);
-        closeModalFn();
-      });
+    try {
+      await handleAddAudio(formData);
+      setLoading(false);
+      closeModalFn();
+    } catch (err) {
+      setLoading(false);
+      closeModalFn();
+    }
   }
 
   // VALIDACIONES
@@ -196,4 +194,4 @@ function AddSound() {
   );
 }
 
-export default AddSound;
+export default AddAudios;

@@ -16,16 +16,20 @@ export async function login() {
   return await axios.get(`${process.env.REACT_APP_API_URL}/login`);
 }
 
-// Sonidos
+// Audios
 
-export async function addSound(formData) {
-  return await axios.post(`${process.env.REACT_APP_API_URL}/audio/upload`, formData);
+export async function addAudio(formData) {
+  return await axios.post(`${process.env.REACT_APP_API_URL}/audio/create`, formData);
 }
 
 export async function getAudios() {
   return await axios.get(`${process.env.REACT_APP_API_URL}/audio`);
 }
 
-export async function playSonido(id) {
+export async function playAudio(id) {
   return await axios.get(`${process.env.REACT_APP_API_URL}/audio/play/${id}`);
+}
+
+export async function deleteAudio(id) {
+  return await axios.delete(`${process.env.REACT_APP_API_URL}/audio/delete/${id}`);
 }

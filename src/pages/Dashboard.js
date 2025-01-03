@@ -1,14 +1,12 @@
 import React from 'react';
-import ServerInfo from '../components/Discord/ServerInfo';
-import AddSound from '../components/Sounds/AddSound';
-import ShowSounds from '../components/Sounds/ShowSounds';
+import ManageAudios from '../components/Audios/ManageAudios.js';
+import ServerInfo from '../components/Discord/ServerInfo.js';
 
 function Dashboard(props) {
   return (
     <>
       <ServerInfo />
-      <AddSound />
-      <ShowSounds />
+      <ManageAudios />
     </>
   );
 }
