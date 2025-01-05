@@ -5,7 +5,7 @@ import { playAudio } from '../../services/api.service.js';
 
 const PlayAudio = (props) => {
   const [loading, setLoading] = useState(false);
-  const [elapsedTime, setElapsedTime] = useState(null);
+  const { controllerCurrent, handleSetController } = props.abort;
 
   const styleBtnDefault = {
     backgroundColor: 'lightblue',
@@ -20,12 +20,18 @@ const PlayAudio = (props) => {
   };
 
   async function handlePlayClick() {
-    setLoading(true);
-    const startTime = Date.now();
+    // Cancelar solicitud previa si existe
+    if (controllerCurrent) {
+      controllerCurrent.abort();
+    }
 
-    playAudio(props.id)
+    const newController = new AbortController();
+    handleSetController(newController);
+
+    setLoading(true);
+
+    playAudio(props.id, newController)
       .then((res) => {
-        setElapsedTime(res.data.timeResponse - startTime);
         setLoading(false);
       })
       .catch(() => {
@@ -42,7 +48,6 @@ const PlayAudio = (props) => {
       >
         <PlayArrow fontSize="medium" />
       </IconButton>
-      {elapsedTime && <div>{elapsedTime} ms</div>}
     </>
   );
 };

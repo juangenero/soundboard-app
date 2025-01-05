@@ -26,8 +26,10 @@ export async function getAudios() {
   return await axios.get(`${process.env.REACT_APP_API_URL}/audio`);
 }
 
-export async function playAudio(id) {
-  return await axios.get(`${process.env.REACT_APP_API_URL}/audio/play/${id}`);
+export async function playAudio(id, controller) {
+  return await axios.get(`${process.env.REACT_APP_API_URL}/audio/play/${id}`, {
+    signal: controller.signal,
+  });
 }
 
 export async function deleteAudio(id) {

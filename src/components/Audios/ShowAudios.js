@@ -1,10 +1,18 @@
 import { Box, Card, CardActions, CardContent, Grid2, Typography } from '@mui/material';
-import { React } from 'react';
+import { React, useRef } from 'react';
 import DeleteAudio from './DeleteAudio.js';
 import PlayAudio from './PlayAudio.js';
 
 function ShowAudios(props) {
   const { audios, handleDeleteAudio } = props;
+  const controllerRef = useRef(null);
+
+  const handleSetController = (controller) => {
+    if (controllerRef.current) {
+      controllerRef.current.abort();
+    }
+    controllerRef.current = controller;
+  };
 
   return (
     <>
@@ -21,7 +29,14 @@ function ShowAudios(props) {
                 </CardContent>
                 <CardActions style={{ justifyContent: 'space-between' }}>
                   <Box display="flex" justifyContent="flex-start" width="100%">
-                    <PlayAudio id={audio.id} />
+                    <PlayAudio
+                      key={audio.id}
+                      id={audio.id}
+                      abort={{
+                        controllerCurrent: controllerRef.current,
+                        handleSetController: handleSetController,
+                      }}
+                    />
                   </Box>
                   <Box display="flex" justifyContent="flex-end" width="100%">
                     <DeleteAudio
