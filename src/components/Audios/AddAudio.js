@@ -25,6 +25,8 @@ function AddAudios({ handleAddAudio }) {
 
   const fileInputRef = React.useRef(null); // Referencia input archivo
   const minLengthNombre = 3; // Validaciones
+  const maxLengthNombre = 24;
+  const maxFileSize = 1048576;
 
   // MODAL
   const openModalFn = () => {
@@ -65,18 +67,28 @@ function AddAudios({ handleAddAudio }) {
 
   // VALIDACIONES
   function validateForm() {
-    const audioValido = validateFile(formValues.audioName);
+    const audioValido = validateFile(formValues.audioFile);
     const nombreValido = validateNombre(formValues.nombre);
     setFormErrors({ ...formErrors, audioFile: !audioValido, nombre: !nombreValido });
     return audioValido && nombreValido;
   }
 
   const validateFile = (file) => {
-    return file && file.length > 0;
+    console.log(file);
+    let fileExists = file && file.name.length > 0;
+    console.log('fileExists ', fileExists);
+    let fileSize = file && file.size < maxFileSize;
+    console.log('fileSize ', fileSize);
+
+    return fileExists && fileSize;
   };
 
   const validateNombre = (nombre) => {
-    return nombre.trim().length >= minLengthNombre;
+    let cleanedNombre = nombre.trim();
+    let minNombre = cleanedNombre.length >= minLengthNombre;
+    let maxNombre = cleanedNombre.length <= maxLengthNombre;
+
+    return minNombre && maxNombre;
   };
 
   // Botón explorar
@@ -124,7 +136,7 @@ function AddAudios({ handleAddAudio }) {
                 margin="normal"
                 placeholder="Elige un audio"
                 error={formErrors.audioFile}
-                helperText={formErrors.audioFile && `Elige un audio`}
+                helperText={formErrors.audioFile && `Elige un audio (1 MB máximo)`}
                 value={formValues.audioName}
                 fullWidth
                 variant="outlined"
@@ -155,7 +167,10 @@ function AddAudios({ handleAddAudio }) {
                 margin="dense"
                 label="Nombre del audio"
                 error={formErrors.nombre}
-                helperText={formErrors.nombre && `Mínimo de ${minLengthNombre} carácteres`}
+                helperText={
+                  formErrors.nombre &&
+                  `El nombre del audio debe tener entre ${minLengthNombre} y ${maxLengthNombre} carácteres`
+                }
                 fullWidth
                 value={formValues.nombre}
                 required

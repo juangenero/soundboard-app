@@ -1,4 +1,12 @@
-import { Box, Card, CardActions, CardContent, Grid2, Typography } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CircularProgress,
+  Grid2,
+  Typography,
+} from '@mui/material';
 import { React, useRef } from 'react';
 import DeleteAudio from './DeleteAudio.js';
 import PlayAudio from './PlayAudio.js';
@@ -16,7 +24,14 @@ function ShowAudios(props) {
 
   return (
     <>
-      {audios.length === 0 && <h2>No hay audios para mostrar</h2>}
+      <br />
+      <br />
+
+      {audios.length < 1 && (
+        <Box sx={{ display: 'flex' }}>
+          <CircularProgress />
+        </Box>
+      )}
       {audios.length > 0 && (
         <Grid2 container spacing={2}>
           {audios.map((audio) => (
