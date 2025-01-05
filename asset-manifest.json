@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/soundboard-app/static/js/main.a229bb37.js",
+    "main.js": "/soundboard-app/static/js/main.aabe3c2d.js",
     "index.html": "/soundboard-app/index.html",
-    "main.a229bb37.js.map": "/soundboard-app/static/js/main.a229bb37.js.map"
+    "main.aabe3c2d.js.map": "/soundboard-app/static/js/main.aabe3c2d.js.map"
   },
   "entrypoints": [
-    "static/js/main.a229bb37.js"
+    "static/js/main.aabe3c2d.js"
   ]
 }
