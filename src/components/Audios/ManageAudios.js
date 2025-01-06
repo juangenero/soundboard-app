@@ -37,6 +37,7 @@ function ManageAudios(props) {
   return (
     <>
       <AddAudio handleAddAudio={handleAddAudio} />
+      <br />
       <ShowAudios audios={audios} handleDeleteAudio={handleDeleteAudio} />
     </>
   );

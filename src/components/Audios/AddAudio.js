@@ -1,10 +1,13 @@
-import { Add, FileUpload } from '@mui/icons-material';
+import { FileUpload } from '@mui/icons-material';
+import AddIcon from '@mui/icons-material/Add';
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Fab,
   Grid2,
   TextField,
 } from '@mui/material';
@@ -74,11 +77,8 @@ function AddAudios({ handleAddAudio }) {
   }
 
   const validateFile = (file) => {
-    console.log(file);
     let fileExists = file && file.name.length > 0;
-    console.log('fileExists ', fileExists);
     let fileSize = file && file.size < maxFileSize;
-    console.log('fileSize ', fileSize);
 
     return fileExists && fileSize;
   };
@@ -121,11 +121,21 @@ function AddAudios({ handleAddAudio }) {
     setFormErrors(cleanErrors);
   }
 
+  // https://www.npmjs.com/package/emoji-picker-react
+
   return (
     <>
-      <Button variant="contained" startIcon={<Add />} onClick={openModalFn}>
-        Añadir
-      </Button>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%',
+        }}
+      >
+        <Fab color="primary" aria-label="add" onClick={openModalFn}>
+          <AddIcon />
+        </Fab>
+      </Box>
       <Dialog open={openModal} onClose={closeModalFn}>
         <DialogTitle>Subir un audio</DialogTitle>
         <DialogContent>
@@ -134,13 +144,13 @@ function AddAudios({ handleAddAudio }) {
             <Grid2 size={12} sx={{ display: 'flex', alignItems: 'center' }}>
               <TextField
                 margin="normal"
-                placeholder="Elige un audio"
+                placeholder="Elige un audio *"
                 error={formErrors.audioFile}
                 helperText={formErrors.audioFile && `Elige un audio (1 MB máximo)`}
                 value={formValues.audioName}
                 fullWidth
                 variant="outlined"
-                inputProps={{ readOnly: true }}
+                slotProps={{ input: { readOnly: true } }}
                 onClick={() => fileInputRef.current?.click()}
                 sx={{ flex: 1 }}
               />
@@ -168,12 +178,12 @@ function AddAudios({ handleAddAudio }) {
                 label="Nombre del audio"
                 error={formErrors.nombre}
                 helperText={
-                  formErrors.nombre &&
-                  `El nombre del audio debe tener entre ${minLengthNombre} y ${maxLengthNombre} carácteres`
+                  formErrors.nombre && `El nombre debe tener al menos ${minLengthNombre} carácteres`
                 }
                 fullWidth
                 value={formValues.nombre}
                 required
+                slotProps={{ htmlInput: { maxLength: maxLengthNombre } }}
                 onChange={(e) => {
                   setFormValues({ ...formValues, nombre: e.target.value });
                 }}

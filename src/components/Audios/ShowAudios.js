@@ -23,9 +23,6 @@ function ShowAudios(props) {
 
   return (
     <>
-      <br />
-      <br />
-
       {audios.length < 1 && (
         <Box sx={{ display: 'flex' }}>
           <CircularProgress />
@@ -41,9 +38,15 @@ function ShowAudios(props) {
                     {audio.nombre}
                   </Typography>
                 </CardContent>
-                <CardActions style={{ justifyContent: 'space-between' }}>
+                <CardActions>
                   {/* Botón Play */}
-                  <Box display="flex" width="100%">
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      width: '100%',
+                    }}
+                  >
                     <PlayAudio
                       key={audio.id}
                       id={audio.id}
