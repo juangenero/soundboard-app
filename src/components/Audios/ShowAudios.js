@@ -8,7 +8,6 @@ import {
   Typography,
 } from '@mui/material';
 import { React, useRef } from 'react';
-import DeleteAudio from './DeleteAudio.js';
 import PlayAudio from './PlayAudio.js';
 
 function ShowAudios(props) {
@@ -43,7 +42,8 @@ function ShowAudios(props) {
                   </Typography>
                 </CardContent>
                 <CardActions style={{ justifyContent: 'space-between' }}>
-                  <Box display="flex" justifyContent="flex-start" width="100%">
+                  {/* Botón Play */}
+                  <Box display="flex" width="100%">
                     <PlayAudio
                       key={audio.id}
                       id={audio.id}
@@ -53,13 +53,14 @@ function ShowAudios(props) {
                       }}
                     />
                   </Box>
-                  <Box display="flex" justifyContent="flex-end" width="100%">
+                  {/* Botón eliminar */}
+                  {/* <Box display="flex" justifyContent="flex-end" width="100%">
                     <DeleteAudio
                       id={audio.id}
                       nombre={audio.nombre}
                       handleDeleteAudio={handleDeleteAudio}
                     />
-                  </Box>
+                  </Box> */}
                 </CardActions>
               </Card>
             </Grid2>
