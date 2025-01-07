@@ -1,4 +1,5 @@
 // import AddAudio from './AddAudio.js';
+import { Box, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { addAudio, deleteAudio, getAudios } from '../../services/api.service.js';
 import AddAudio from './AddAudio.js';
@@ -6,6 +7,12 @@ import ShowAudios from './ShowAudios.js';
 
 function ManageAudios(props) {
   const [audios, setAudios] = useState([]);
+  const [search, setSearch] = useState('');
+
+  // Buscador de audios
+  const filteredAudios = audios.filter((audio) =>
+    audio.nombre.toLowerCase().includes(search.toLowerCase())
+  );
 
   useEffect(() => {
     fetchAudios();
@@ -36,9 +43,23 @@ function ManageAudios(props) {
 
   return (
     <>
-      <AddAudio handleAddAudio={handleAddAudio} />
-      <br />
-      <ShowAudios audios={audios} handleDeleteAudio={handleDeleteAudio} />
+      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
+        {/* Botón de añadir */}
+        <Box sx={{ paddingLeft: '25px' }}>
+          <AddAudio handleAddAudio={handleAddAudio} />
+        </Box>
+        {/* Cuadro de búsqueda */}
+        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+          <TextField
+            sx={{ width: '350px', marginRight: '80px', background: '#e3e1e1' }}
+            label="Buscar"
+            variant="outlined"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </Box>
+      </Box>
+      <ShowAudios audios={filteredAudios} handleDeleteAudio={handleDeleteAudio} />
     </>
   );
 }

@@ -1,0 +1,13 @@
+/* App.css o index.css */
+body {
+  margin: 0;
+  font-family: 'Playwrite AU SA', serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  background-image: url('./assets/images/bg.jpg');
+  background-size: 'cover';
+  background-repeat: 'no-repeat';
+  background-attachment: 'fixed';
+  width: '100%';
+}

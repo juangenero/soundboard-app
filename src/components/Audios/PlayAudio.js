@@ -18,17 +18,17 @@ const PlayAudio = (props) => {
   const [maxPlayersOnUse, setMaxPlayersOnUse] = useState(false);
   const { controllerCurrent, handleSetController } = props.abort;
 
-  const styleBtnDefault = {
-    backgroundColor: 'lightblue',
-    color: 'black',
-    marginRight: '10px',
-  };
+  // const styleBtnDefault = {
+  //   backgroundColor: 'lightblue',
+  //   color: 'black',
+  //   marginRight: '10px',
+  // };
 
-  const styleBtnLoading = {
-    backgroundColor: 'lightgray',
-    color: 'gray',
-    marginRight: '10px',
-  };
+  // const styleBtnLoading = {
+  //   backgroundColor: 'lightgray',
+  //   color: 'gray',
+  //   marginRight: '10px',
+  // };
 
   function closeModalFn(reason = undefined) {
     setMaxPlayersOnUse(false);
@@ -62,14 +62,28 @@ const PlayAudio = (props) => {
       });
   }
 
+  // style={loading ? styleBtnLoading : styleBtnDefault}
   return (
     <>
       <IconButton
         onClick={handlePlayClick}
-        style={loading ? styleBtnLoading : styleBtnDefault}
+        sx={{
+          backgroundColor: '#f5f5f5', // Color de fondo
+          border: '2px solid gray', // Borde gris para armonizar con la tarjeta
+          borderRadius: '50%', // Forma circular
+          padding: '10px', // Espaciado interno
+          boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', // Sombra ligera
+          '&:hover': {
+            backgroundColor: '#e0e0e0', // Cambia el color al pasar el ratón
+          },
+          '&:disabled': {
+            backgroundColor: '#cccccc', // Color para el estado deshabilitado
+            border: '2px solid #aaaaaa',
+          },
+        }}
         disabled={loading}
       >
-        <PlayArrow fontSize="medium" />
+        <PlayArrow fontSize="large" />
       </IconButton>
 
       {/* Modal de aviso de spam */}

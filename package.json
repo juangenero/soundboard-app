@@ -26,10 +26,10 @@
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "emoji-picker-react": "^4.12.0",
+    "framer-motion": "^11.16.0",
     "gh-pages": "^6.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-magic-motion": "^1.1.2",
     "react-scripts": "5.0.1"
   },
   "homepage": "https://juangenero.github.io/soundboard-app",

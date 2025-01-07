@@ -1,11 +1,12 @@
 import React from 'react';
 import ManageAudios from '../components/Audios/ManageAudios.js';
-import ServerInfo from '../components/Discord/ServerInfo.js';
 
 function Dashboard(props) {
   return (
     <>
-      <ServerInfo />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <h1>Soundboard (BETA)</h1>
+      </div>
       <ManageAudios />
     </>
   );

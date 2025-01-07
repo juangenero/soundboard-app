@@ -1,14 +1,7 @@
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CircularProgress,
-  Grid2,
-  Typography,
-} from '@mui/material';
+import { Box, Card, CardActions, CardContent, CardMedia, Grid2, Typography } from '@mui/material';
+import { AnimatePresence, motion } from 'framer-motion';
 import { React, useRef } from 'react';
+import background from '../../assets/images/bg-card2.png';
 import PlayAudio from './PlayAudio.js';
 
 function ShowAudios(props) {
@@ -16,6 +9,7 @@ function ShowAudios(props) {
   const controllerRef = useRef(null);
   const urlEmojis = 'https://cdn.jsdelivr.net/npm/emoji-datasource-twitter/img/twitter/64/';
 
+  // Controla las peticiones rechazadas cuando se crean nuevas al reproducir audios
   const handleSetController = (controller) => {
     if (controllerRef.current) {
       controllerRef.current.abort();
@@ -26,21 +20,27 @@ function ShowAudios(props) {
   return (
     <>
       {audios.length < 1 && (
-        <Box sx={{ display: 'flex' }}>
-          <CircularProgress />
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Typography variant="h5" sx={{ fontFamily: 'Playwrite AU SA, sans-serif' }}>
+            No se encontraron audios
+          </Typography>
         </Box>
       )}
       {audios.length > 0 && (
-        <Grid2 container spacing={2}>
-          {audios.map(
-            (audio) =>
-              ({ undefined } && (
-                <Grid2 xs={12} sm={6} md={4} lg={3} key={audio.id}>
+        <Grid2 container spacing={2} sx={{ display: 'flex', justifyContent: 'center' }}>
+          <AnimatePresence>
+            {audios.map((audio) => (
+              <Grid2 xs={12} sm={6} md={4} lg={3} key={audio.id}>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.25 }}
+                >
                   <Card
                     sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      border: '2px solid lightgray',
+                      backgroundImage: `url(${background})`,
+                      border: '2px solid gray',
                       borderRadius: '32px',
                       boxShadow: 'none',
                       width: 250,
@@ -63,7 +63,12 @@ function ShowAudios(props) {
                         />
                       </Box>
                       {/* Nombre del audio */}
-                      <Typography variant="subtitle1" component="div" align="center">
+                      <Typography
+                        variant="subtitle1"
+                        component="div"
+                        align="center"
+                        sx={{ fontFamily: 'Playwrite AU SA, sans-serif' }}
+                      >
                         {audio.nombre}
                       </Typography>
                     </CardContent>
@@ -86,9 +91,10 @@ function ShowAudios(props) {
                       />
                     </CardActions>
                   </Card>
-                </Grid2>
-              ))
-          )}
+                </motion.div>
+              </Grid2>
+            ))}
+          </AnimatePresence>
         </Grid2>
       )}
     </>
