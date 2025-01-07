@@ -30,6 +30,7 @@ function AddAudios({ handleAddAudio }) {
   const [formErrors, setFormErrors] = useState({
     audioFile: false,
     nombre: false,
+    emoji: false,
   });
 
   const fileInputRef = React.useRef(null); // Referencia input archivo
@@ -76,18 +77,18 @@ function AddAudios({ handleAddAudio }) {
     }
   }
 
-  // Handler emoji
-  function handleClickEmoji(ev) {
-    setFormValues({ ...formValues, icono: { id: ev?.unified, emoji: ev?.emoji } });
-    setOpenModalEmoji(false);
-  }
-
   // VALIDACIONES
   function validateForm() {
     const audioValido = validateFile(formValues.audioFile);
     const nombreValido = validateNombre(formValues.nombre);
-    setFormErrors({ ...formErrors, audioFile: !audioValido, nombre: !nombreValido });
-    return audioValido && nombreValido;
+    const emojiValido = validateEmoji(formValues.icono.id);
+    setFormErrors({
+      ...formErrors,
+      audioFile: !audioValido,
+      nombre: !nombreValido,
+      emoji: !emojiValido,
+    });
+    return audioValido && nombreValido && emojiValido;
   }
 
   const validateFile = (file) => {
@@ -105,8 +106,13 @@ function AddAudios({ handleAddAudio }) {
     return minNombre && maxNombre;
   };
 
+  const validateEmoji = (idEmoji) => {
+    let emoji = idEmoji.length > 0;
+    return emoji;
+  };
+
   // Botón explorar
-  function handleFileSelec(event) {
+  function handleFileSelect(event) {
     if (event.target.files.length > 0) {
       setFormValues({
         ...formValues,
@@ -114,6 +120,12 @@ function AddAudios({ handleAddAudio }) {
         audioName: event.target.files[0]?.name || '',
       });
     }
+  }
+
+  // Handle emoji
+  function handleClickEmoji(ev) {
+    setFormValues({ ...formValues, icono: { id: ev?.unified, emoji: ev?.emoji } });
+    setOpenModalEmoji(false);
   }
 
   // Limpiar valores form
@@ -181,7 +193,7 @@ function AddAudios({ handleAddAudio }) {
                   type="file"
                   accept="audio/*"
                   ref={fileInputRef}
-                  onChange={(e) => handleFileSelec(e)}
+                  onChange={(e) => handleFileSelect(e)}
                   hidden
                 />
               </Button>
@@ -212,7 +224,10 @@ function AddAudios({ handleAddAudio }) {
                 margin="dense"
                 label="Emoji"
                 fullWidth
+                required
                 value={formValues.icono?.emoji}
+                error={formErrors.emoji}
+                helperText={formErrors.emoji && `Selecciona un icono`}
                 slotProps={{
                   input: { readOnly: true },
                   inputLabel: { shrink: formValues.icono?.emoji !== '' },
@@ -221,6 +236,7 @@ function AddAudios({ handleAddAudio }) {
                 onClick={() => {
                   setOpenModalEmoji(true);
                 }}
+                onChange={(e) => handleClickEmoji(e)}
               />
               <EmojiPickerModal
                 openModalEmoji={openModalEmoji}

@@ -3,6 +3,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CardMedia,
   CircularProgress,
   Grid2,
   Typography,
@@ -31,53 +32,63 @@ function ShowAudios(props) {
       )}
       {audios.length > 0 && (
         <Grid2 container spacing={2}>
-          {audios.map((audio) => (
-            <Grid2 xs={12} sm={6} md={4} lg={3} key={audio.id}>
-              <Card sx={{ border: '2px solid lightgray' }}>
-                <CardContent>
-                  {/* Emoji */}
-                  <Box>
-                    <img
-                      src={`${urlEmojis}${audio.emoji}.png`}
-                      alt="emoji no encontrado"
-                      loading="lazy"
-                    />
-                  </Box>
-                  {/* Nombre del audio */}
-                  <Typography variant="h5" component="div" align="center">
-                    {audio.nombre}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  {/* Botón Play */}
-                  <Box
+          {audios.map(
+            (audio) =>
+              ({ undefined } && (
+                <Grid2 xs={12} sm={6} md={4} lg={3} key={audio.id}>
+                  <Card
                     sx={{
                       display: 'flex',
-                      justifyContent: 'center',
-                      width: '100%',
+                      flexDirection: 'column',
+                      border: '2px solid lightgray',
+                      borderRadius: '32px',
+                      boxShadow: 'none',
+                      width: 250,
                     }}
                   >
-                    <PlayAudio
-                      key={audio.id}
-                      id={audio.id}
-                      abort={{
-                        controllerCurrent: controllerRef.current,
-                        handleSetController: handleSetController,
+                    <CardContent>
+                      {/* Emoji */}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <CardMedia
+                          component="img"
+                          sx={{ width: 50, height: 50 }}
+                          image={`${urlEmojis}${audio.emoji}.png`}
+                          alt="Not found"
+                        />
+                      </Box>
+                      {/* Nombre del audio */}
+                      <Typography variant="subtitle1" component="div" align="center">
+                        {audio.nombre}
+                      </Typography>
+                    </CardContent>
+
+                    {/* Botonera */}
+                    <CardActions
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
-                    />
-                  </Box>
-                  {/* Botón eliminar */}
-                  {/* <Box display="flex" justifyContent="flex-end" width="100%">
-                    <DeleteAudio
-                      id={audio.id}
-                      nombre={audio.nombre}
-                      handleDeleteAudio={handleDeleteAudio}
-                    />
-                  </Box> */}
-                </CardActions>
-              </Card>
-            </Grid2>
-          ))}
+                    >
+                      <PlayAudio
+                        key={audio.id}
+                        id={audio.id}
+                        abort={{
+                          controllerCurrent: controllerRef.current,
+                          handleSetController: handleSetController,
+                        }}
+                      />
+                    </CardActions>
+                  </Card>
+                </Grid2>
+              ))
+          )}
         </Grid2>
       )}
     </>
@@ -85,3 +96,13 @@ function ShowAudios(props) {
 }
 
 export default ShowAudios;
+
+{
+  /* <Box display="flex" justifyContent="flex-end" width="100%">
+<DeleteAudio
+id={audio.id}
+nombre={audio.nombre}
+handleDeleteAudio={handleDeleteAudio}
+/>
+</Box> */
+}
