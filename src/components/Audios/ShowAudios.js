@@ -13,6 +13,7 @@ import PlayAudio from './PlayAudio.js';
 function ShowAudios(props) {
   const { audios, handleDeleteAudio } = props;
   const controllerRef = useRef(null);
+  const urlEmojis = 'https://cdn.jsdelivr.net/npm/emoji-datasource-twitter/img/twitter/64/';
 
   const handleSetController = (controller) => {
     if (controllerRef.current) {
@@ -34,6 +35,15 @@ function ShowAudios(props) {
             <Grid2 xs={12} sm={6} md={4} lg={3} key={audio.id}>
               <Card sx={{ border: '2px solid lightgray' }}>
                 <CardContent>
+                  {/* Emoji */}
+                  <Box>
+                    <img
+                      src={`${urlEmojis}${audio.emoji}.png`}
+                      alt="emoji no encontrado"
+                      loading="lazy"
+                    />
+                  </Box>
+                  {/* Nombre del audio */}
                   <Typography variant="h5" component="div" align="center">
                     {audio.nombre}
                   </Typography>

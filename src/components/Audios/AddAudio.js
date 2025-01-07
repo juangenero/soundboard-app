@@ -12,14 +12,20 @@ import {
   TextField,
 } from '@mui/material';
 import React, { useState } from 'react';
+import EmojiPickerModal from './EmojiPickerModal';
 
 function AddAudios({ handleAddAudio }) {
   const [openModal, setOpenModal] = useState(false);
+  const [openModalEmoji, setOpenModalEmoji] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     audioName: '',
     audioFile: null,
     nombre: '',
+    icono: {
+      id: '',
+      emoji: '',
+    },
   });
   const [formErrors, setFormErrors] = useState({
     audioFile: false,
@@ -27,6 +33,7 @@ function AddAudios({ handleAddAudio }) {
   });
 
   const fileInputRef = React.useRef(null); // Referencia input archivo
+  const emojiInputRef = React.useRef(null); // Referencia input emoji
   const minLengthNombre = 3; // Validaciones
   const maxLengthNombre = 24;
   const maxFileSize = 1048576;
@@ -54,6 +61,7 @@ function AddAudios({ handleAddAudio }) {
     const formData = new FormData();
     formData.append('nombre', formValues.nombre);
     formData.append('audio', formValues.audioFile);
+    formData.append('emoji', formValues.icono.id);
 
     setLoading(true);
 
@@ -66,6 +74,12 @@ function AddAudios({ handleAddAudio }) {
       setLoading(false);
       closeModalFn();
     }
+  }
+
+  // Handler emoji
+  function handleClickEmoji(ev) {
+    setFormValues({ ...formValues, icono: { id: ev?.unified, emoji: ev?.emoji } });
+    setOpenModalEmoji(false);
   }
 
   // VALIDACIONES
@@ -108,6 +122,10 @@ function AddAudios({ handleAddAudio }) {
       audioName: '',
       audioFile: null,
       nombre: '',
+      icono: {
+        id: '',
+        emoji: '',
+      },
     });
   }
 
@@ -120,8 +138,6 @@ function AddAudios({ handleAddAudio }) {
 
     setFormErrors(cleanErrors);
   }
-
-  // https://www.npmjs.com/package/emoji-picker-react
 
   return (
     <>
@@ -143,7 +159,7 @@ function AddAudios({ handleAddAudio }) {
             {/* 1 - Input / button archivo de audio */}
             <Grid2 size={12} sx={{ display: 'flex', alignItems: 'center' }}>
               <TextField
-                margin="normal"
+                margin="dense"
                 placeholder="Elige un audio *"
                 error={formErrors.audioFile}
                 helperText={formErrors.audioFile && `Elige un audio (1 MB máximo)`}
@@ -172,7 +188,7 @@ function AddAudios({ handleAddAudio }) {
             </Grid2>
 
             {/* 2 - Nombre del audio */}
-            <Grid2 size={12}>
+            <Grid2 size={8}>
               <TextField
                 margin="dense"
                 label="Nombre del audio"
@@ -191,7 +207,27 @@ function AddAudios({ handleAddAudio }) {
             </Grid2>
 
             {/* 3 - Icono */}
-            <Grid2 size={0}></Grid2>
+            <Grid2 size={4}>
+              <TextField
+                margin="dense"
+                label="Emoji"
+                fullWidth
+                value={formValues.icono?.emoji}
+                slotProps={{
+                  input: { readOnly: true },
+                  inputLabel: { shrink: formValues.icono?.emoji !== '' },
+                }}
+                ref={emojiInputRef}
+                onClick={() => {
+                  setOpenModalEmoji(true);
+                }}
+              />
+              <EmojiPickerModal
+                openModalEmoji={openModalEmoji}
+                setOpenModalEmoji={setOpenModalEmoji}
+                handleClickEmoji={handleClickEmoji}
+              />
+            </Grid2>
 
             {/* 4 - Volumen del audio */}
             <Grid2 size={0}></Grid2>
