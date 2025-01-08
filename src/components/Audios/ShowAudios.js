@@ -2,6 +2,7 @@ import { Box, Card, CardActions, CardContent, CardMedia, Grid2, Typography } fro
 import { AnimatePresence, motion } from 'framer-motion';
 import { React, useRef } from 'react';
 import background from '../../assets/images/bg-card2.png';
+import FavoriteAudio from './FavoriteAudio.js';
 import PlayAudio from './PlayAudio.js';
 
 function ShowAudios(props) {
@@ -44,9 +45,13 @@ function ShowAudios(props) {
                       borderRadius: '32px',
                       boxShadow: 'none',
                       width: 250,
+                      position: 'relative', // Para poner el icono de favorito como posición "absoluta"
                     }}
                   >
                     <CardContent>
+                      {/* Icono favorito */}
+                      <FavoriteAudio idAudio={audio.id} />
+
                       {/* Emoji */}
                       <Box
                         sx={{
