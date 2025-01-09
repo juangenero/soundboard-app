@@ -1,50 +1,43 @@
-import { Box, TextField } from '@mui/material';
+import { Box } from '@mui/material';
 import { useContext, useEffect } from 'react';
 import DashboardContext from '../../context/DashboardContext.js';
 import { addAudio, deleteAudio, getAudios } from '../../services/api.service.js';
 import AddAudio from './AddAudio.js';
+import SearchAudio from './SearchAudio.js';
 import ShowAudios from './ShowAudios.js';
 import SwitchFavorite from './SwitchFavorite.js';
 
 function ManageAudios() {
   const { audios, setAudios } = useContext(DashboardContext); // Audios recibido desde el servidor
-  const { audiosFav, setAudiosFav } = useContext(DashboardContext); // Audios marcados como favoritos
   const { audiosFiltered, setAudiosFiltered } = useContext(DashboardContext); // Audios marcados como favoritos
-
-  const { activeFav, setActiveFav } = useContext(DashboardContext); // Switch activo (boolean)
-  const { idsFav, setIdsFav } = useContext(DashboardContext); // IDs de los audios favoritos
-
   const { search, setSearch } = useContext(DashboardContext); // Término de búsqueda
 
+  const { favSwitch, setFavSwitch } = useContext(DashboardContext); // Switch activo (boolean)
+  const { idsFav, setIdsFav } = useContext(DashboardContext); // IDs de los audios favoritos
+
   useEffect(() => {
-    init();
+    fetchAudios();
   }, []);
 
   useEffect(() => {
-    handleSearchAudio(search);
-  }, [activeFav]);
-
-  // Iniciar estados
-  const init = async () => {
-    const data = await fetchAudios();
-    setAudiosFiltered(data);
-  };
+    handleFilterAudio(search);
+  }, [favSwitch, idsFav]);
 
   // Obtener audios del servidor
   const fetchAudios = async () => {
     try {
       const response = await getAudios();
-      setAudios(response.data);
-      return response.data;
+      setAudios(response.data); // Guardar en el array de audios principal
+      setAudiosFiltered(response.data); // Guardar en el array de audios filtrados
     } catch (error) {
       console.error('Error al recuperar los audios:', error);
     }
   };
 
-  // Buscar audio
-  function handleSearchAudio(str) {
+  // Filtrar audio
+  function handleFilterAudio(str) {
     setSearch(str);
-    if (!activeFav) {
+    if (!favSwitch) {
       setAudiosFiltered(
         audios.filter((audio) => audio.nombre.toLowerCase().includes(str.toLowerCase()))
       );
@@ -72,24 +65,30 @@ function ManageAudios() {
 
   return (
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
-        {/* Botón de añadir */}
-        <Box sx={{ paddingLeft: '25 px' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          marginBottom: '1rem',
+          position: 'relative',
+        }}
+      >
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginLeft: '1rem' }}>
           <AddAudio handleAddAudio={handleAddAudio} />
         </Box>
-        {/* Cuadro de búsqueda */}
-        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-          <TextField
-            sx={{ width: '400px', marginRight: '80px', background: '#e3e1e1' }}
-            label="Buscar"
-            variant="outlined"
-            value={search}
-            onChange={(e) => handleSearchAudio(e.target.value)}
-          />
+        <Box sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
+          <SearchAudio search={search} handleFilterAudio={handleFilterAudio} />
         </Box>
-        <SwitchFavorite />
+        <Box sx={{ display: 'flex', marginRight: '1rem' }}>
+          <SwitchFavorite />
+        </Box>
       </Box>
-      <ShowAudios />
+
+      {/* Mostrar audios */}
+      <Box>
+        <ShowAudios />
+      </Box>
     </>
   );
 }

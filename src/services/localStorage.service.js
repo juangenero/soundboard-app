@@ -1,14 +1,3 @@
-// - - - ALMACENAMIENTO DE SWITCH FAVORITOS - - -
-const keyFavActive = 'activeFav';
-
-export function getActiveFavLS() {
-  return JSON.parse(localStorage.getItem(keyFavActive)) || false;
-}
-
-export function setActiveFavLS(value) {
-  localStorage.setItem(keyFavActive, JSON.stringify(value));
-}
-
 // - - - ALMACENAMIENTO DE AUDIOS FAVORITOS - - -
 
 const keyFavorites = 'idsFav';

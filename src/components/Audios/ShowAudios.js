@@ -3,8 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { React, useContext, useRef } from 'react';
 import background from '../../assets/images/bg-card2.png';
 import DashboardContext from '../../context/DashboardContext.js';
-import FavoriteAudio from './FavoriteAudio.js';
 import PlayAudio from './PlayAudio.js';
+import StarFavorite from './StarFavorite.js';
 
 function ShowAudios(props) {
   const { audiosFiltered, setAudiosFiltered } = useContext(DashboardContext);
@@ -52,7 +52,7 @@ function ShowAudios(props) {
                   >
                     <CardContent>
                       {/* Icono favorito */}
-                      <FavoriteAudio idAudio={audio.id} />
+                      <StarFavorite idAudio={audio.id} />
 
                       {/* Emoji */}
                       <Box

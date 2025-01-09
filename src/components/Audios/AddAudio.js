@@ -152,18 +152,11 @@ function AddAudios({ handleAddAudio }) {
   }
 
   return (
-    <>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          width: '100%',
-        }}
-      >
-        <Fab color="primary" aria-label="add" onClick={openModalFn}>
-          <AddIcon />
-        </Fab>
-      </Box>
+    <Box>
+      <Fab color="primary" aria-label="añadir" onClick={openModalFn}>
+        <AddIcon />
+      </Fab>
+
       <Dialog open={openModal} onClose={closeModalFn}>
         <DialogTitle>Subir un audio</DialogTitle>
         <DialogContent>
@@ -267,7 +260,7 @@ function AddAudios({ handleAddAudio }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 }
 

@@ -1,23 +1,25 @@
-import { Box, FormControlLabel, Switch } from '@mui/material';
+import { Box, FormControlLabel, Switch, Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import DashboardContext from '../../context/DashboardContext';
 
 const SwitchFavorite = () => {
-  const { activeFav, setActiveFav } = useContext(DashboardContext);
+  const { favSwitch, setFavSwitch } = useContext(DashboardContext);
 
   return (
     <Box>
       <FormControlLabel
         control={
-          <Switch
-            color="primary"
-            checked={activeFav}
-            onChange={(ev) => {
-              setActiveFav(ev.target.checked);
-            }}
-          />
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography>Onlyfavs</Typography>
+            <Switch
+              color="primary"
+              checked={favSwitch}
+              onChange={(ev) => {
+                setFavSwitch(ev.target.checked);
+              }}
+            />
+          </Box>
         }
-        label="Onlyfavs"
       />
     </Box>
   );

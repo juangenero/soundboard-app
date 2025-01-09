@@ -1,16 +1,16 @@
 import React, { createContext, useState } from 'react';
-import { addFavLS, removeFavLS } from '../services/localStorage.service';
+import { addFavLS, getIdsFavLS, removeFavLS } from '../services/localStorage.service';
 
 const DashboardContext = createContext();
 
 export const DashboardProvider = ({ children }) => {
   // - - - - - ESTADOS - - - - -
   const [audios, setAudios] = useState([]);
-  const [audiosFav, setAudiosFav] = useState([]);
   const [audiosFiltered, setAudiosFiltered] = useState([]);
   const [search, setSearch] = useState('');
-  const [activeFav, setActiveFav] = useState(false);
-  const [idsFav, setIdsFav] = useState([]);
+
+  const [favSwitch, setFavSwitch] = useState(false); // Switch para mostrar favoritos
+  const [idsFav, setIdsFav] = useState(getIdsFavLS()); // Array de ids de audios favoritos
 
   // - - - - - FUNCIONES - - - - -
 
@@ -26,32 +26,26 @@ export const DashboardProvider = ({ children }) => {
     removeFavLS(idAudio);
   };
 
-  // Get active favorito
-
-  // Set active favorito
-
   return (
     <DashboardContext.Provider
       value={{
         // Lista de audios
         audios,
         setAudios,
-        audiosFav,
-        setAudiosFav,
         audiosFiltered,
         setAudiosFiltered,
-
-        // Audios favoritos
-        activeFav,
-        setActiveFav,
-        idsFav,
-        setIdsFav,
-        addFavorite, // !! Función
-        removeFavorite, // !! Función
 
         // Búsqueda
         search,
         setSearch,
+
+        // Audios favoritos
+        favSwitch,
+        setFavSwitch,
+        idsFav,
+        setIdsFav,
+        addFavorite, // !! Función star
+        removeFavorite, // !! Función star
       }}
     >
       {children}

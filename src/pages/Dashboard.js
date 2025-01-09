@@ -6,12 +6,12 @@ function Dashboard() {
   return (
     <>
       <Typography
-        variant="h3"
+        variant="h4"
         sx={{
           display: 'flex',
           justifyContent: 'center',
           fontFamily: 'Playwrite AU SA, sans-serif',
-          marginY: '25px',
+          marginY: '1rem',
         }}
       >
         Soundboard (BETA)
