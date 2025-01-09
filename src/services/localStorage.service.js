@@ -1,30 +1,20 @@
 // - - - ALMACENAMIENTO DE SWITCH FAVORITOS - - -
-const keyFavActive = 'favActive';
+const keyFavActive = 'activeFav';
 
-export function getFavActiveLocalStorage() {
+export function getActiveFavLS() {
   return JSON.parse(localStorage.getItem(keyFavActive)) || false;
 }
 
-export function setFavActiveLocalStorage(value) {
+export function setActiveFavLS(value) {
   localStorage.setItem(keyFavActive, JSON.stringify(value));
 }
 
 // - - - ALMACENAMIENTO DE AUDIOS FAVORITOS - - -
 
-const keyFavorites = 'favorites';
-
-// Guardar array de favoritos
-function setFavsLocalStorage(array) {
-  try {
-    const arrayString = JSON.stringify(array);
-    localStorage.setItem(keyFavorites, arrayString);
-  } catch (error) {
-    console.error(`setFavsLocalStorage -> ${error}`);
-  }
-}
+const keyFavorites = 'idsFav';
 
 // Obtener array de favoritos
-export function getFavsLocalStorage() {
+export function getIdsFavLS() {
   try {
     const arrayString = localStorage.getItem(keyFavorites);
     if (arrayString) {
@@ -32,21 +22,31 @@ export function getFavsLocalStorage() {
     }
     return [];
   } catch (error) {
-    console.error(`getFavsLocalStorage -> ${error}`);
+    console.error(`getIdsFavLS -> ${error}`);
     return [];
   }
 }
 
+// Guardar array de favoritos
+function setIdsFavLS(array) {
+  try {
+    const arrayString = JSON.stringify(array);
+    localStorage.setItem(keyFavorites, arrayString);
+  } catch (error) {
+    console.error(`setIdsFavLS -> ${error}`);
+  }
+}
+
 // Añadir elemento al array favoritos
-export function addAudioToFavs(idAudio) {
-  const array = getFavsLocalStorage();
+export function addFavLS(idAudio) {
+  let array = getIdsFavLS();
   array.push(idAudio);
-  setFavsLocalStorage(array);
+  setIdsFavLS(array);
 }
 
 // Eliminar elemento del array favoritos
-export function removeAudioFromFavs(idAudio) {
-  let array = getFavsLocalStorage();
+export function removeFavLS(idAudio) {
+  let array = getIdsFavLS();
   array = array.filter((item) => item !== idAudio);
-  setFavsLocalStorage(array);
+  setIdsFavLS(array);
 }

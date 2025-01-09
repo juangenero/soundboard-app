@@ -1,12 +1,14 @@
 import { Box, Card, CardActions, CardContent, CardMedia, Grid2, Typography } from '@mui/material';
 import { AnimatePresence, motion } from 'framer-motion';
-import { React, useRef } from 'react';
+import { React, useContext, useRef } from 'react';
 import background from '../../assets/images/bg-card2.png';
+import DashboardContext from '../../context/DashboardContext.js';
 import FavoriteAudio from './FavoriteAudio.js';
 import PlayAudio from './PlayAudio.js';
 
 function ShowAudios(props) {
-  const { audios, handleDeleteAudio } = props;
+  const { audiosFiltered, setAudiosFiltered } = useContext(DashboardContext);
+  const { handleDeleteAudio } = props;
   const controllerRef = useRef(null);
   const urlEmojis = 'https://cdn.jsdelivr.net/npm/emoji-datasource-twitter/img/twitter/64/';
 
@@ -20,17 +22,17 @@ function ShowAudios(props) {
 
   return (
     <>
-      {audios.length < 1 && (
+      {audiosFiltered.length < 1 && (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Typography variant="h5" sx={{ fontFamily: 'Playwrite AU SA, sans-serif' }}>
             No se encontraron audios
           </Typography>
         </Box>
       )}
-      {audios.length > 0 && (
+      {audiosFiltered.length > 0 && (
         <Grid2 container spacing={2} sx={{ display: 'flex', justifyContent: 'center' }}>
           <AnimatePresence>
-            {audios.map((audio) => (
+            {audiosFiltered.map((audio) => (
               <Grid2 xs={12} sm={6} md={4} lg={3} key={audio.id}>
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
