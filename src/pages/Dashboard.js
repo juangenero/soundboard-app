@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import React from 'react';
-import ManageAudios from '../components/Audios/ManageAudios.js';
+import ManageAudios from '../components/audios/ManageAudios.js';
 
 function Dashboard() {
   return (
