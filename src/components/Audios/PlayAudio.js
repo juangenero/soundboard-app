@@ -11,24 +11,11 @@ import {
 import React, { useEffect, useState } from 'react';
 import { playAudio } from '../../services/api.service.js';
 
-const secondsModalSpam = 5;
-
 const PlayAudio = (props) => {
+  const secondsModalSpam = 5;
   const [loading, setLoading] = useState(false);
   const [maxPlayersOnUse, setMaxPlayersOnUse] = useState(false);
-  const { controllerCurrent, handleSetController } = props.abort;
-
-  // const styleBtnDefault = {
-  //   backgroundColor: 'lightblue',
-  //   color: 'black',
-  //   marginRight: '10px',
-  // };
-
-  // const styleBtnLoading = {
-  //   backgroundColor: 'lightgray',
-  //   color: 'gray',
-  //   marginRight: '10px',
-  // };
+  const { playCurrent, handleSetController } = props.abort;
 
   function closeModalFn(reason = undefined) {
     setMaxPlayersOnUse(false);
@@ -43,16 +30,16 @@ const PlayAudio = (props) => {
 
   async function handlePlayClick() {
     // Cancelar solicitud previa si existe
-    if (controllerCurrent) {
-      controllerCurrent.abort();
+    if (playCurrent) {
+      playCurrent.abort();
     }
 
-    const newController = new AbortController();
-    handleSetController(newController);
+    const newPlayRef = new AbortController();
+    handleSetController(newPlayRef);
 
     setLoading(true);
 
-    playAudio(props.id, newController)
+    playAudio(props.id, newPlayRef)
       .then((res) => {
         if (res.data.maxPlayerOnUse) setMaxPlayersOnUse(true);
         setLoading(false);

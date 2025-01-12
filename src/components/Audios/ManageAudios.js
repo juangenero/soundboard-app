@@ -3,8 +3,8 @@ import { useContext, useEffect } from 'react';
 import AudioContext from '../../context/AudioContext.js';
 import { addAudio, deleteAudio, getAudios } from '../../services/api.service.js';
 import AddAudio from './AddAudio.js';
+import ListAudios from './ListAudios.js';
 import SearchAudio from './SearchAudio.js';
-import ShowAudios from './ShowAudios.js';
 import SwitchFavorite from './SwitchFavorite.js';
 
 function ManageAudios() {
@@ -87,7 +87,7 @@ function ManageAudios() {
 
       {/* Mostrar audios */}
       <Box>
-        <ShowAudios />
+        <ListAudios />
       </Box>
     </>
   );

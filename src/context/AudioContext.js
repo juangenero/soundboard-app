@@ -44,8 +44,8 @@ export const AudioProvider = ({ children }) => {
         setFavSwitch,
         idsFav,
         setIdsFav,
-        addFavorite, // !! Función star
-        removeFavorite, // !! Función star
+        addFavorite,
+        removeFavorite,
       }}
     >
       {children}
