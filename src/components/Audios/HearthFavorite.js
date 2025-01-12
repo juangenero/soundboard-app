@@ -1,15 +1,15 @@
-import { Star, StarBorder } from '@mui/icons-material';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import DashboardContext from '../../context/DashboardContext.js';
+import AudioContext from '../../context/AudioContext.js';
 import { getIdsFavLS } from '../../services/localStorage.service.js';
 
-const StarFavorite = (props) => {
+const HearthFavorite = (props) => {
   const { idAudio } = props;
 
   const isFav = getIdsFavLS().includes(idAudio); // Obtener si el audio está en favoritos
   const [favorite, setFavorite] = useState(isFav); // Si ha marcado favorito (estrella)
-  const { addFavorite, removeFavorite } = useContext(DashboardContext); // Funciones para añadir/quitar favoritos
+  const { addFavorite, removeFavorite } = useContext(AudioContext); // Funciones para añadir/quitar favoritos
 
   function handleClickFavorite() {
     // Actualizar estado local
@@ -32,10 +32,10 @@ const StarFavorite = (props) => {
           handleClickFavorite();
         }}
       >
-        {favorite ? <Star color="primary" /> : <StarBorder />}
+        {favorite ? <Favorite color="error" /> : <FavoriteBorder />}
       </IconButton>
     </Tooltip>
   );
 };
 
-export default StarFavorite;
+export default HearthFavorite;

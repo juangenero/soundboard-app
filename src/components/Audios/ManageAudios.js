@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { useContext, useEffect } from 'react';
-import DashboardContext from '../../context/DashboardContext.js';
+import AudioContext from '../../context/AudioContext.js';
 import { addAudio, deleteAudio, getAudios } from '../../services/api.service.js';
 import AddAudio from './AddAudio.js';
 import SearchAudio from './SearchAudio.js';
@@ -8,12 +8,12 @@ import ShowAudios from './ShowAudios.js';
 import SwitchFavorite from './SwitchFavorite.js';
 
 function ManageAudios() {
-  const { audios, setAudios } = useContext(DashboardContext); // Audios recibido desde el servidor
-  const { audiosFiltered, setAudiosFiltered } = useContext(DashboardContext); // Audios marcados como favoritos
-  const { search, setSearch } = useContext(DashboardContext); // Término de búsqueda
+  const { audios, setAudios } = useContext(AudioContext); // Audios recibido desde el servidor
+  const { audiosFiltered, setAudiosFiltered } = useContext(AudioContext); // Audios marcados como favoritos
+  const { search, setSearch } = useContext(AudioContext); // Término de búsqueda
 
-  const { favSwitch, setFavSwitch } = useContext(DashboardContext); // Switch activo (boolean)
-  const { idsFav, setIdsFav } = useContext(DashboardContext); // IDs de los audios favoritos
+  const { favSwitch, setFavSwitch } = useContext(AudioContext); // Switch activo (boolean)
+  const { idsFav, setIdsFav } = useContext(AudioContext); // IDs de los audios favoritos
 
   useEffect(() => {
     fetchAudios();

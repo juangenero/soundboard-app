@@ -1,9 +1,9 @@
 import { Box, FormControlLabel, Switch, Typography } from '@mui/material';
 import React, { useContext } from 'react';
-import DashboardContext from '../../context/DashboardContext';
+import AudioContext from '../../context/AudioContext.js';
 
 const SwitchFavorite = () => {
-  const { favSwitch, setFavSwitch } = useContext(DashboardContext);
+  const { favSwitch, setFavSwitch } = useContext(AudioContext);
 
   return (
     <Box>

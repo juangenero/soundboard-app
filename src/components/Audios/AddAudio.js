@@ -12,9 +12,12 @@ import {
   TextField,
 } from '@mui/material';
 import React, { useState } from 'react';
+import { useAlert } from '../../context/Alert.context.js';
 import EmojiPickerModal from './EmojiPickerModal';
 
 function AddAudios({ handleAddAudio }) {
+  const { showAlert } = useAlert();
+
   const [openModal, setOpenModal] = useState(false);
   const [openModalEmoji, setOpenModalEmoji] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -71,9 +74,11 @@ function AddAudios({ handleAddAudio }) {
       await handleAddAudio(formData);
       setLoading(false);
       closeModalFn();
+      showAlert('Audio subido correctamente', 'success');
     } catch (err) {
       setLoading(false);
       closeModalFn();
+      showAlert('Error al subir el audio', 'error');
     }
   }
 

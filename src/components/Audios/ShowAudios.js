@@ -2,12 +2,12 @@ import { Box, Card, CardActions, CardContent, CardMedia, Grid2, Typography } fro
 import { AnimatePresence, motion } from 'framer-motion';
 import { React, useContext, useRef } from 'react';
 import background from '../../assets/images/bg-card2.png';
-import DashboardContext from '../../context/DashboardContext.js';
+import AudioContext from '../../context/AudioContext.js';
+import HearthFavorite from './HearthFavorite.js';
 import PlayAudio from './PlayAudio.js';
-import StarFavorite from './StarFavorite.js';
 
 function ShowAudios(props) {
-  const { audiosFiltered, setAudiosFiltered } = useContext(DashboardContext);
+  const { audiosFiltered, setAudiosFiltered } = useContext(AudioContext);
   const { handleDeleteAudio } = props;
   const controllerRef = useRef(null);
   const urlEmojis = 'https://cdn.jsdelivr.net/npm/emoji-datasource-twitter/img/twitter/64/';
@@ -52,7 +52,7 @@ function ShowAudios(props) {
                   >
                     <CardContent>
                       {/* Icono favorito */}
-                      <StarFavorite idAudio={audio.id} />
+                      <HearthFavorite idAudio={audio.id} />
 
                       {/* Emoji */}
                       <Box

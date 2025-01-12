@@ -1,9 +1,9 @@
 import React, { createContext, useState } from 'react';
 import { addFavLS, getIdsFavLS, removeFavLS } from '../services/localStorage.service';
 
-const DashboardContext = createContext();
+const AudioContext = createContext();
 
-export const DashboardProvider = ({ children }) => {
+export const AudioProvider = ({ children }) => {
   // - - - - - ESTADOS - - - - -
   const [audios, setAudios] = useState([]);
   const [audiosFiltered, setAudiosFiltered] = useState([]);
@@ -27,7 +27,7 @@ export const DashboardProvider = ({ children }) => {
   };
 
   return (
-    <DashboardContext.Provider
+    <AudioContext.Provider
       value={{
         // Lista de audios
         audios,
@@ -49,8 +49,8 @@ export const DashboardProvider = ({ children }) => {
       }}
     >
       {children}
-    </DashboardContext.Provider>
+    </AudioContext.Provider>
   );
 };
 
-export default DashboardContext;
+export default AudioContext;

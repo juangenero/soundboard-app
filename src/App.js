@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import { DashboardProvider } from './context/DashboardContext.js';
+import { AudioProvider } from './context/AudioContext.js';
 import Dashboard from './pages/Dashboard.js';
 
 function App() {
   return (
-    <DashboardProvider>
+    <AudioProvider>
       <Dashboard />
-    </DashboardProvider>
+    </AudioProvider>
   );
 }
 
