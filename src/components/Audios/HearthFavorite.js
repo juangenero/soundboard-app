@@ -11,7 +11,9 @@ const HearthFavorite = (props) => {
   const [favorite, setFavorite] = useState(isFav); // Si ha marcado favorito (estrella)
   const { addFavorite, removeFavorite } = useContext(AudioContext); // Funciones para añadir/quitar favoritos
 
-  function handleClickFavorite() {
+  function handleClickFavorite(ev) {
+    ev.stopPropagation();
+
     // Actualizar estado local
     setFavorite(!favorite);
 
@@ -23,13 +25,14 @@ const HearthFavorite = (props) => {
   return (
     <Tooltip title="Añadir a favoritos" placement="top">
       <IconButton
+        size="small"
         sx={{
           position: 'absolute',
-          top: 5,
-          right: 5,
+          top: 0,
+          right: 0,
         }}
-        onClick={() => {
-          handleClickFavorite();
+        onClick={(ev) => {
+          handleClickFavorite(ev);
         }}
       >
         {favorite ? <Favorite color="error" /> : <FavoriteBorder />}
