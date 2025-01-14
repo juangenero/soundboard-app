@@ -34,7 +34,6 @@ const CardAudio = (props) => {
   }, [maxPlayersOnUse]);
 
   async function handlePlayClick() {
-    console.log('clicked');
     // Cancelar solicitud previa si existe
     if (playRef.current) {
       playRef.current.abort();
@@ -76,7 +75,7 @@ const CardAudio = (props) => {
   return (
     <>
       <Card
-        onClick={handlePlayClick}
+        onClick={!loading ? handlePlayClick : undefined}
         onMouseEnter={handleClickHover}
         onMouseLeave={handleClickUnHover}
         sx={{
@@ -91,41 +90,38 @@ const CardAudio = (props) => {
         }}
       >
         <CardContent>
-          {/* Icono favorito */}
-          {hoverCard ? <HearthFavorite idAudio={audio.id} /> : undefined}
-
-          {/* Caja de contenido relativo */}
+          {/* Emoji */}
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            {/* Icono favorito */}
+            {hoverCard ? <HearthFavorite idAudio={audio.id} /> : undefined}
+            <CardMedia
+              component="img"
+              sx={{ width: 50, height: 50, opacity: hoverCard ? 0.5 : 1 }}
+              image={`${urlEmojis}${audio.emoji}.png`}
+              alt="Not found"
+            />
+          </Box>
+          {/* Nombre del audio */}
           <Box sx={{ opacity: hoverCard ? 0.5 : 1 }}>
-            {/* Emoji */}
-            <Box
+            <Typography
+              variant="subtitle1"
               sx={{
-                display: 'flex',
-                justifyContent: 'center',
+                fontFamily: 'Playwrite AU SA, sans-serif',
+                textAlign: 'center',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
               }}
             >
-              <CardMedia
-                component="img"
-                sx={{ width: 50, height: 50 }}
-                image={`${urlEmojis}${audio.emoji}.png`}
-                alt="Not found"
-              />
-            </Box>
-            {/* Nombre del audio */}
-            <Box>
-              <Typography
-                variant="subtitle1"
-                sx={{
-                  fontFamily: 'Playwrite AU SA, sans-serif',
-                  textAlign: 'center',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                {audio.nombre}
-              </Typography>
-            </Box>
+              {audio.nombre}
+            </Typography>
           </Box>
+
           {/* Icono play hover */}
           {hoverCard && (
             <SvgIcon

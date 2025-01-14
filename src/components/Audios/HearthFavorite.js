@@ -28,8 +28,8 @@ const HearthFavorite = (props) => {
         size="small"
         sx={{
           position: 'absolute',
-          top: 0,
-          right: 0,
+          top: 6,
+          right: 6,
         }}
         onClick={(ev) => {
           handleClickFavorite(ev);
