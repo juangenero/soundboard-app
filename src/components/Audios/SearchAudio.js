@@ -7,7 +7,6 @@ const SearchAudio = (props) => {
   return (
     <Box>
       <TextField
-        sx={{ width: '25vw' }}
         label="Buscar"
         variant="outlined"
         value={search}

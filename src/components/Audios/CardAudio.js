@@ -10,17 +10,20 @@ import {
   SvgIcon,
   Typography,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import AudioContext from '../../context/AudioContext.js';
 import { playAudio } from '../../services/api.service.js';
 import background from './../../assets/images/bg-card2.png';
 import HearthFavorite from './HearthFavorite.js';
+
 const CardAudio = (props) => {
   const { audio, playRef } = props;
   const urlEmojis = 'https://cdn.jsdelivr.net/npm/emoji-datasource-twitter/img/twitter/64/';
 
-  const [loading, setLoading] = useState(false);
-  const [hoverCard, setHoverCard] = useState(false);
-  const [maxPlayersOnUse, setMaxPlayersOnUse] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading btn play audio
+  const [hoverCard, setHoverCard] = useState(false); // estado para controlar hover de la card
+  const [maxPlayersOnUse, setMaxPlayersOnUse] = useState(false); // Spam btn play
+  const { canalDiscord } = useContext(AudioContext);
 
   function closeModalFn(reason = undefined) {
     setMaxPlayersOnUse(false);
@@ -44,7 +47,7 @@ const CardAudio = (props) => {
 
     setLoading(true);
 
-    playAudio(audio.id, newPlayRef)
+    playAudio(audio.id, canalDiscord.guildId, canalDiscord.channelId, newPlayRef)
       .then((res) => {
         if (res.data.maxPlayerOnUse) setMaxPlayersOnUse(true);
         setLoading(false);

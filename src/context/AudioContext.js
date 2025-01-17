@@ -12,6 +12,8 @@ export const AudioProvider = ({ children }) => {
   const [favSwitch, setFavSwitch] = useState(false); // Switch para mostrar favoritos
   const [idsFav, setIdsFav] = useState(getIdsFavLS()); // Array de ids de audios favoritos
 
+  const [canalDiscord, setCanalDiscord] = useState();
+
   // - - - - - FUNCIONES - - - - -
 
   // Añadir favorito
@@ -46,6 +48,10 @@ export const AudioProvider = ({ children }) => {
         setIdsFav,
         addFavorite,
         removeFavorite,
+
+        // canal discord // TODO para borrar
+        canalDiscord,
+        setCanalDiscord,
       }}
     >
       {children}

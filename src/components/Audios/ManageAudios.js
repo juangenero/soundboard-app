@@ -6,6 +6,7 @@ import AddAudio from './AddAudio.js';
 import ListAudios from './ListAudios.js';
 import SearchAudio from './SearchAudio.js';
 import SwitchFavorite from './SwitchFavorite.js';
+import SelectCanalDiscord from './temporal/SelectCanalDiscord.js';
 
 function ManageAudios() {
   const { audios, setAudios } = useContext(AudioContext); // Audios recibido desde el servidor
@@ -69,18 +70,26 @@ function ManageAudios() {
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
+          alignItems: 'center',
           width: '100%',
           marginBottom: '1rem',
-          position: 'relative',
         }}
       >
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginLeft: '1rem' }}>
-          <AddAudio handleAddAudio={handleAddAudio} />
+        {/* Contenedor principal (izquierda) */}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <Box sx={{ marginLeft: '1rem' }}>
+            <AddAudio handleAddAudio={handleAddAudio} />
+          </Box>
+          <Box sx={{ marginLeft: '1rem' }}>
+            <SearchAudio search={search} handleFilterAudio={handleFilterAudio} />
+          </Box>
+          <Box sx={{ marginLeft: '1rem' }}>
+            <SelectCanalDiscord />
+          </Box>
         </Box>
-        <Box sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
-          <SearchAudio search={search} handleFilterAudio={handleFilterAudio} />
-        </Box>
-        <Box sx={{ display: 'flex', marginRight: '1rem' }}>
+
+        {/* Favoritos */}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginRight: '1rem' }}>
           <SwitchFavorite />
         </Box>
       </Box>
