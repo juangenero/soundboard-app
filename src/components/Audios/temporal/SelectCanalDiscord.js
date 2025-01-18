@@ -1,3 +1,4 @@
+import { InputLabel } from '@mui/material';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
@@ -53,31 +54,39 @@ const SelectCanalDiscord = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
-      <FormControl>
-        <Box>
-          {/* Seleccionar servidor */}
-          <Select value={selectServidor.id} onChange={handleSelectServidor} sx={{ width: '180px' }}>
-            {servidores.map((server) => (
-              <MenuItem key={server.id} value={server.id}>
-                {server.nombre}
-              </MenuItem>
-            ))}
-          </Select>
-        </Box>
+      <FormControl sx={{ width: '180px' }}>
+        <InputLabel id="selectGuild">Servidor</InputLabel>
+        <Select
+          labelId="selectGuild"
+          value={selectServidor.id}
+          onChange={handleSelectServidor}
+          label="Servidor"
+        >
+          {servidores.map((server) => (
+            <MenuItem key={server.id} value={server.id}>
+              {server.nombre}
+            </MenuItem>
+          ))}
+        </Select>
       </FormControl>
       {/* Seleccionar canal */}
       <FormControl>
-        <Box>
-          <Select value={selectCanal.id} onChange={handleSelectCanal} sx={{ width: 'auto' }}>
-            {servidores
-              .find((s) => s.nombre === selectServidor.nombre)
-              ?.channels.map((channel) => (
-                <MenuItem key={channel.id} value={channel.id}>
-                  {channel.nombre}
-                </MenuItem>
-              ))}
-          </Select>
-        </Box>
+        <InputLabel id="selectChannel">Canal</InputLabel>
+        <Select
+          labelId="selectChannel"
+          label="Canal"
+          value={selectCanal.id}
+          onChange={handleSelectCanal}
+          sx={{ width: 'auto' }}
+        >
+          {servidores
+            .find((s) => s.nombre === selectServidor.nombre)
+            ?.channels.map((channel) => (
+              <MenuItem key={channel.id} value={channel.id}>
+                {channel.nombre}
+              </MenuItem>
+            ))}
+        </Select>
       </FormControl>
     </Box>
   );
@@ -104,22 +113,22 @@ const servidores = [
       },
     ],
   },
-  // {
-  //   nombre: 'Papu in da uuh',
-  //   id: '763539213252558868',
-  //   channels: [
-  //     {
-  //       nombre: 'DBD que tu te cagas',
-  //       id: '1097361239644065822',
-  //     },
-  //     {
-  //       nombre: 'Llorando en el valo',
-  //       id: '1106943638228959252',
-  //     },
-  //     {
-  //       nombre: 'Rocket que tu te cagas',
-  //       id: '815586752236224522',
-  //     },
-  //   ],
-  // },
+  {
+    nombre: 'Papu in da uuh',
+    id: '763539213252558868',
+    channels: [
+      {
+        nombre: 'DBD que tu te cagas',
+        id: '1097361239644065822',
+      },
+      {
+        nombre: 'Llorando en el valo',
+        id: '1106943638228959252',
+      },
+      {
+        nombre: 'Rocket que tu te cagas',
+        id: '815586752236224522',
+      },
+    ],
+  },
 ];
