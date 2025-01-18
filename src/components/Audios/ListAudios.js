@@ -10,6 +10,9 @@ function ListAudios() {
 
   return (
     <>
+      <Typography sx={{ fontFamily: 'Playwrite AU SA', margin: '1rem' }}>
+        {`Mostrando ${audiosFiltered.length} audios`}
+      </Typography>
       {audiosFiltered.length < 1 && (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Typography variant="h5" sx={{ fontFamily: 'Playwrite AU SA, sans-serif' }}>

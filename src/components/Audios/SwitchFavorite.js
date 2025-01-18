@@ -10,7 +10,7 @@ const SwitchFavorite = () => {
       <FormControlLabel
         control={
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography>Onlyfavs</Typography>
+            <Typography>Favoritos</Typography>
             <Switch
               color="primary"
               checked={favSwitch}

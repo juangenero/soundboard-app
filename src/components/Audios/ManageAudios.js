@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Grid2 } from '@mui/material';
 import { useContext, useEffect } from 'react';
 import AudioContext from '../../context/AudioContext.js';
 import { addAudio, deleteAudio, getAudios } from '../../services/api.service.js';
@@ -66,33 +66,33 @@ function ManageAudios() {
 
   return (
     <>
-      <Box
+      <Grid2
+        container
+        spacing={2}
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          width: '100%',
-          marginBottom: '1rem',
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          marginX: '1rem',
         }}
       >
-        {/* Contenedor principal (izquierda) */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <Box sx={{ marginLeft: '1rem' }}>
-            <AddAudio handleAddAudio={handleAddAudio} />
-          </Box>
-          <Box sx={{ marginLeft: '1rem' }}>
-            <SearchAudio search={search} handleFilterAudio={handleFilterAudio} />
-          </Box>
-          <Box sx={{ marginLeft: '1rem' }}>
-            <SelectCanalDiscord />
-          </Box>
-        </Box>
-
-        {/* Favoritos */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginRight: '1rem' }}>
+        <Grid2 item xs={6} md={3}>
+          {/* Añadir audio */}
+          <AddAudio handleAddAudio={handleAddAudio} />
+        </Grid2>
+        <Grid2 item xs={6} md={3}>
+          {/* Buscador */}
+          <SearchAudio search={search} handleFilterAudio={handleFilterAudio} />
+        </Grid2>
+        <Grid2 item xs={6} md={3}>
+          {/* Selección de canal */}
+          <SelectCanalDiscord />
+        </Grid2>
+        <Grid2 item xs={6} md={3} sx={{ marginLeft: { xs: 0, md: 'auto' } }}>
+          {/* Favoritos */}
           <SwitchFavorite />
-        </Box>
-      </Box>
+        </Grid2>
+      </Grid2>
 
       {/* Mostrar audios */}
       <Box>
