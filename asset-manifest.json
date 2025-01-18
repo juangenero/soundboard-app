@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/soundboard-app/static/css/main.73be741f.css",
-    "main.js": "/soundboard-app/static/js/main.caa70a88.js",
+    "main.js": "/soundboard-app/static/js/main.5b2d7345.js",
     "static/media/bg-card2.png": "/soundboard-app/static/media/bg-card2.8c71e51d5ae08026d03b.png",
     "static/media/bg.jpg": "/soundboard-app/static/media/bg.2fa0afaa7a6b5e7781cd.jpg",
     "index.html": "/soundboard-app/index.html",
     "main.73be741f.css.map": "/soundboard-app/static/css/main.73be741f.css.map",
-    "main.caa70a88.js.map": "/soundboard-app/static/js/main.caa70a88.js.map"
+    "main.5b2d7345.js.map": "/soundboard-app/static/js/main.5b2d7345.js.map"
   },
   "entrypoints": [
     "static/css/main.73be741f.css",
-    "static/js/main.caa70a88.js"
+    "static/js/main.5b2d7345.js"
   ]
 }
