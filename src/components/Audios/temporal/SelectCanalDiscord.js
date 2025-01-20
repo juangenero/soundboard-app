@@ -6,23 +6,30 @@ import Select from '@mui/material/Select';
 import React, { useContext, useEffect, useState } from 'react';
 import AudioContext from '../../../context/AudioContext.js';
 
+const getInitialServidor = () =>
+  JSON.parse(localStorage.getItem('selectServidor')) || {
+    nombre: 'Alcalá City',
+    id: '982724208343810058',
+  };
+const getInitialCanal = () =>
+  JSON.parse(localStorage.getItem('selectCanal')) || {
+    nombre: 'El club de la garraspera',
+    id: '1126882636451823776',
+  };
+
 const SelectCanalDiscord = () => {
   const { canalDiscord, setCanalDiscord } = useContext(AudioContext);
 
   // Alcalá City por defecto
-  const [selectServidor, setSelectServidor] = useState({
-    nombre: servidores[0].nombre,
-    id: servidores[0].id,
-  });
+  const [selectServidor, setSelectServidor] = useState(getInitialServidor);
 
   // Club de la garraspera por defecto
-  const [selectCanal, setSelectCanal] = useState({
-    nombre: servidores[0].channels[0].nombre,
-    id: servidores[0].channels[0].id,
-  });
+  const [selectCanal, setSelectCanal] = useState(getInitialCanal);
 
   useEffect(() => {
     setCanalDiscord({ guildId: selectServidor.id, channelId: selectCanal.id });
+    localStorage.setItem('selectServidor', JSON.stringify(selectServidor));
+    localStorage.setItem('selectCanal', JSON.stringify(selectCanal));
   }, [selectServidor, selectCanal]);
 
   const handleSelectServidor = (ev) => {

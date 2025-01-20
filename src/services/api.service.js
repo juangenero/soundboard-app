@@ -38,3 +38,8 @@ export async function playAudio(id, guildId, channelId, controller) {
 export async function deleteAudio(id) {
   return await axios.delete(`${process.env.REACT_APP_API_URL}/audio/delete/${id}`);
 }
+
+// AUX
+export async function getIp() {
+  return await axios.get('https://api.ipify.org');
+}

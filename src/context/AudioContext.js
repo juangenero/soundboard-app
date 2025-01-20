@@ -14,6 +14,7 @@ export const AudioProvider = ({ children }) => {
 
   const [canalDiscord, setCanalDiscord] = useState();
 
+  const [ip, setIp] = useState(false);
   // - - - - - FUNCIONES - - - - -
 
   // Añadir favorito
@@ -52,6 +53,9 @@ export const AudioProvider = ({ children }) => {
         // canal discord // TODO para borrar
         canalDiscord,
         setCanalDiscord,
+
+        ip,
+        setIp,
       }}
     >
       {children}
