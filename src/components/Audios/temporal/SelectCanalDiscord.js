@@ -95,6 +95,7 @@ const SelectCanalDiscord = () => {
 export default SelectCanalDiscord;
 
 const servidores = [
+  // ALCALÁ CITY
   {
     nombre: 'Alcalá City',
     id: '982724208343810058',
@@ -113,6 +114,8 @@ const servidores = [
       },
     ],
   },
+
+  // PIDU
   {
     nombre: 'Papu in da uuh',
     id: '763539213252558868',
@@ -129,6 +132,22 @@ const servidores = [
         nombre: 'Rocket que tu te cagas',
         id: '815586752236224522',
       },
+      {
+        nombre: 'Er_Papu_Supremos',
+        id: '879029017506897961',
+      },
     ],
   },
+
+  // PRUEBAS
+  // {
+  //   nombre: 'PRUEBAS',
+  //   id: '1154114617757409330',
+  //   channels: [
+  //     {
+  //       nombre: 'Sala',
+  //       id: '1154114618659197032',
+  //     },
+  //   ],
+  // },
 ];

@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogTitle,
   LinearProgress,
+  Link,
   SvgIcon,
   Typography,
 } from '@mui/material';
@@ -110,7 +111,7 @@ const CardAudio = (props) => {
             />
           </Box>
           {/* Nombre del audio */}
-          <Box sx={{ opacity: hoverCard ? 0.5 : 1 }}>
+          <Box>
             <Typography
               variant="subtitle1"
               sx={{
@@ -156,9 +157,16 @@ const CardAudio = (props) => {
           }
         }}
       >
-        <DialogTitle>CPU del servidor al 100%</DialogTitle>
+        <DialogTitle>Toca esperar o pagar 😭😭😭</DialogTitle>
         <DialogContent>
-          <Typography>Espera un poco o apoquina pasta para el server 😭😭😭</Typography>
+          <Typography>
+            Máximo de reproducciones simultáneas alcanzado para este servidor.
+            <br />
+            <br />
+            <Link href="https://www.youtube.com/watch?v=FzG4uDgje3M&t" underline="hover">
+              Mas información
+            </Link>
+          </Typography>
         </DialogContent>
         <Box sx={{ width: '100%' }}>
           <LinearProgress />
