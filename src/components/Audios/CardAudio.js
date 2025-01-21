@@ -9,6 +9,7 @@ import {
   LinearProgress,
   Link,
   SvgIcon,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
@@ -78,75 +79,86 @@ const CardAudio = (props) => {
 
   return (
     <>
-      <Card
-        onClick={!loading ? handlePlayClick : undefined}
-        onMouseEnter={handleClickHover}
-        onMouseLeave={handleClickUnHover}
-        sx={{
-          position: 'relative',
-          backgroundImage: `url(${background})`,
-          borderRadius: '12px',
-          boxShadow: 'none',
-          width: '180px',
-          height: 'auto',
-          border: '1px solid gray',
-          cursor: hoverCard ? 'pointer' : 'default',
+      <Tooltip
+        title={audio.nombre}
+        placement="bottom"
+        arrow={true}
+        slotProps={{
+          tooltip: { sx: { fontSize: '1.25em', borderRadius: '12px' } },
+          transition: { timeout: 500 },
         }}
       >
-        <CardContent>
-          {/* Emoji */}
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            {/* Icono favorito */}
-            {hoverCard ? <HearthFavorite idAudio={audio.id} /> : undefined}
-            <CardMedia
-              component="img"
-              sx={{ width: 50, height: 50, opacity: hoverCard ? 0.5 : 1 }}
-              image={`${urlEmojis}${audio.emoji}.png`}
-              alt="Not found"
-            />
-          </Box>
-          {/* Nombre del audio */}
-          <Box>
-            <Typography
-              variant="subtitle1"
+        <Card
+          onClick={!loading ? handlePlayClick : undefined}
+          onMouseEnter={handleClickHover}
+          onMouseLeave={handleClickUnHover}
+          sx={{
+            position: 'relative',
+            backgroundImage: hoverCard
+              ? `linear-gradient(transparent, rgb(150, 150, 150)), url(${background})`
+              : `url(${background})`,
+            borderRadius: '12px',
+            boxShadow: 'none',
+            width: '120px',
+            height: 'auto',
+            border: '1px solid gray',
+            cursor: hoverCard ? 'pointer' : 'default',
+          }}
+        >
+          <CardContent>
+            {/* Emoji */}
+            <Box
               sx={{
-                fontFamily: 'Playwrite AU SA, sans-serif',
-                textAlign: 'center',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
+                display: 'flex',
+                justifyContent: 'center',
               }}
             >
-              {audio.nombre}
-            </Typography>
-          </Box>
+              {/* Icono favorito */}
+              {hoverCard ? <HearthFavorite idAudio={audio.id} /> : undefined}
+              <CardMedia
+                component="img"
+                sx={{ width: 60, height: 60 }}
+                image={`${urlEmojis}${audio.emoji}.png`}
+                alt="Not found"
+              />
+            </Box>
+            {/* Nombre del audio */}
+            <Box>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  fontFamily: 'Playwrite AU SA, sans-serif',
+                  textAlign: 'center',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {audio.nombre}
+              </Typography>
+            </Box>
 
-          {/* Icono play hover */}
-          {hoverCard && (
-            <SvgIcon
-              sx={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                fontSize: '75px',
-                opacity: loading ? 0.5 : 1,
-              }}
-            >
-              <svg viewBox="0 0 64 64" width="64" height="64">
-                <circle cx="32" cy="32" r="32" fill="#4285F4" />
-                <polygon points="26,16 26,48 48,32" fill="#FFFFFF" />
-              </svg>
-            </SvgIcon>
-          )}
-        </CardContent>
-      </Card>
-
+            {/* Icono play hover */}
+            {hoverCard && (
+              <SvgIcon
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  fontSize: '60px',
+                  opacity: loading ? 0.5 : 1,
+                }}
+              >
+                <svg viewBox="0 0 64 64" width="64" height="64">
+                  <circle cx="32" cy="32" r="32" fill="#4285F4" />
+                  <polygon points="26,16 26,48 48,32" fill="#FFFFFF" />
+                </svg>
+              </SvgIcon>
+            )}
+          </CardContent>
+        </Card>
+      </Tooltip>
       {/* Modal SPAM */}
       <Dialog
         open={maxPlayersOnUse}
