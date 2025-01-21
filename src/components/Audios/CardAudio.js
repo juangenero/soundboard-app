@@ -99,7 +99,7 @@ const CardAudio = (props) => {
               : `url(${background})`,
             borderRadius: '12px',
             boxShadow: 'none',
-            width: '120px',
+            width: '140px',
             height: 'auto',
             border: '1px solid gray',
             cursor: hoverCard ? 'pointer' : 'default',
